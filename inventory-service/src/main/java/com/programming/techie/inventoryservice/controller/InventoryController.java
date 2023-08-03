@@ -1,22 +1,22 @@
 package com.programming.techie.inventoryservice.controller;
 
 
+import com.programming.techie.inventoryservice.dto.InventoryResponse;
 import com.programming.techie.inventoryservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/inventory")
 @RequiredArgsConstructor
 public class InventoryController {
 
-    private InventoryService inventoryService;
+    private final InventoryService inventoryService;
 
-    @GetMapping("/{sku-code}")
-    public boolean isInStock(@PathVariable("sku-code") String skuCode) {
+    @GetMapping
+    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCode) {
         return inventoryService.isInStock(skuCode);
     }
 }
